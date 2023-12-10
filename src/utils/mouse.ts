@@ -1,5 +1,3 @@
-import { Vec2 } from "./math";
-
 export const mouseState = {
   center: [0, 0],
 };
