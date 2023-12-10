@@ -37,20 +37,7 @@ let vbos: WebGLBuffer[] = [];
 let ibo: WebGLBuffer | null = null;
 let attributeLocations: number[] = [];
 let texture: WebGLTexture | null = null;
-let previousTime: number = 0;
-
-const options: Options = {
-  iterations_poisson: 32,
-  iterations_viscous: 32,
-  mouse_force: 20,
-  resolution: 0.5,
-  cursor_size: 100,
-  viscous: 30,
-  isBounce: false,
-  dt: 0.014,
-  isViscous: false,
-  BFECC: true,
-};
+let startTime: number = 0;
 
 const init = () => {
   // Find the canvas element
@@ -64,13 +51,6 @@ const init = () => {
   height = window.innerHeight;
 
   // WebGL rendering context
-  const param = {
-    alpha: false,
-    antialias: false,
-    depth: false,
-    stencil: false,
-    preserveDrawingBuffer: false,
-  };
   gl = canvas.getContext("webgl");
   canvas.width = width;
   canvas.height = height;
@@ -80,7 +60,7 @@ const init = () => {
   }
 
   // Set up tweakpane
-  const pane = new Pane();
+  // const pane = new Pane();
 };
 
 const setupGeometry = (gl: WebGLRenderingContext) => {
@@ -143,7 +123,7 @@ const load = async () => {
   program = (await createProgram(gl, vs, fs)) as CustomWebGLProgram;
 
   const sources = [
-    "/glsl-school-task-03/assets/img/nx.png",
+    "/glsl-school-task-03/assets/img/px.png",
     "/glsl-school-task-03/assets/img/py.png",
     "/glsl-school-task-03/assets/img/pz.png",
     "/glsl-school-task-03/assets/img/nx.png",
@@ -183,7 +163,7 @@ const initProgram = (gl: WebGLRenderingContext) => {
 const setup = (gl: WebGLRenderingContext) => {
   initProgram(gl);
   setupGeometry(gl);
-  previousTime = Date.now();
+  startTime = Date.now();
 
   // set texture
   gl.activeTexture(gl.TEXTURE0);
@@ -196,6 +176,8 @@ const setup = (gl: WebGLRenderingContext) => {
 };
 
 const render = (gl: WebGLRenderingContext, program: CustomWebGLProgram) => {
+  requestAnimationFrame(render.bind(null, gl, program));
+
   // Clear the scene
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -204,12 +186,11 @@ const render = (gl: WebGLRenderingContext, program: CustomWebGLProgram) => {
   gl.depthMask(false);
 
   const now = Date.now();
-  const dt = (now - previousTime) / 1000;
-  previousTime = now;
+  const dt = (now - startTime) / 1000;
   const time = gl.getUniformLocation(program, "iTime");
   gl.uniform1f(time, dt);
   const mouse = gl.getUniformLocation(program, "iMouse");
-  gl.uniform2f(mouse, mouseState.center.x, mouseState.center.y);
+  gl.uniform2f(mouse, mouseState.center[0], mouseState.center[1]);
 
   vbos.forEach((vbo, index) => {
     gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
