@@ -13,19 +13,6 @@ interface CustomWebGLProgram extends WebGLProgram {
   cubeNormal: number;
 }
 
-interface Options {
-  iterations_poisson: number;
-  iterations_viscous: number;
-  mouse_force: number;
-  resolution: number;
-  cursor_size: number;
-  viscous: number;
-  isBounce: boolean;
-  dt: number;
-  isViscous: boolean;
-  BFECC: boolean;
-}
-
 let canvas: HTMLCanvasElement | null = null;
 let width: number = 0;
 let height: number = 0;
