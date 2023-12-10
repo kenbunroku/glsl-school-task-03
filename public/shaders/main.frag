@@ -103,6 +103,13 @@ void main() {
 
     float IOR = 1.45;
     if(d < MAX_DIST) {
+        // "[TUT] Bending Light - Part 2"
+        // by Martijn Steinrucken aka The Art of Code/BigWings - 2021
+        // The MIT License
+        // Email: countfrolic@gmail.com
+        // Twitter: @The_ArtOfCode
+        // YouTube: youtube.com/TheArtOfCodeIsCool
+        // Facebook: https://www.facebook.com/groups/theartofcode/
         vec3 p = ro + rd * d;
         vec3 n = getNormal(p);
         vec3 r = reflect(rd, n);
