@@ -1,10 +1,10 @@
-import { vec2 } from "./math";
+import { Vec2 } from "./math";
 
 export const mouseState = {
-  center: vec2(0, 0),
+  center: [0, 0],
 };
 
-let previousMouseCoords = vec2(0, 0);
+let previousMouseCoords = [0, 0];
 
 export const initMouseEvents = (canvas: HTMLCanvasElement | null) => {
   if (!canvas) return;
@@ -19,7 +19,7 @@ export const initMouseEvents = (canvas: HTMLCanvasElement | null) => {
     const mouseY = -(event.clientY / rect.height) * 2 + 1;
 
     // Update mouse state
-    mouseState.center = vec2(mouseX, mouseY);
+    mouseState.center = [mouseX, mouseY];
 
     // Update previous mouse position
     previousMouseCoords = mouseState.center;
