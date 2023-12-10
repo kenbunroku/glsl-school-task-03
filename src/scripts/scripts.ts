@@ -5,7 +5,6 @@ import {
 } from "../utils/webglUtils";
 import { createCube } from "../utils/geometry";
 import { initMouseEvents, mouseState } from "../utils/mouse";
-import { Pane } from "tweakpane";
 
 interface CustomWebGLProgram extends WebGLProgram {
   position: number;

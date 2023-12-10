@@ -2,8 +2,6 @@ export const mouseState = {
   center: [0, 0],
 };
 
-let previousMouseCoords = [0, 0];
-
 export const initMouseEvents = (canvas: HTMLCanvasElement | null) => {
   if (!canvas) return;
 
@@ -18,9 +16,6 @@ export const initMouseEvents = (canvas: HTMLCanvasElement | null) => {
 
     // Update mouse state
     mouseState.center = [mouseX, mouseY];
-
-    // Update previous mouse position
-    previousMouseCoords = mouseState.center;
   };
 
   canvas.addEventListener("mousemove", onMouseMove, false);
