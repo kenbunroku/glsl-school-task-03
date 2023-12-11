@@ -42,7 +42,7 @@ float getDist(vec3 p) {
 
     for(int i = 0; i < 2; i++) {
         p = abs(p) - 2.;
-        p.xz *= rot(iTime * 0.2);
+        // p.xz *= rot(iTime * 0.2);
         p.xy *= rot(iTime * 0.4);
         // p.yz *= rot(iTime * 0.6);
     }
@@ -70,7 +70,7 @@ float rayMarch(vec3 ro, vec3 rd, float side) {
         vec3 p = ro + rd * d;
         float dS = getDist(p) * side;
         d += dS;
-        if(dS < SURF_DIST || d > MAX_DIST)
+        if(dS < SURF_DIST)
             break;
     }
     return d;
